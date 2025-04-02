@@ -8,19 +8,19 @@ pipeline {
 
         stage('Build Jar') {
             steps() {
-                bt "mvn clean package -DskipTests"
+                sh "mvn clean package -DskipTests"
             }
         }
 
         stage('Build Image') {
             steps() {
-                bt "docker build nazariidoker1/docker"
+                sh "docker build nazariidoker1/docker"
             }
         }
 
         stage('Push Immage') {
             steps() {
-                bt "docker push nazariidoker1/docker"
+                sh "docker push nazariidoker1/docker"
             }
         }
 

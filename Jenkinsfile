@@ -26,7 +26,7 @@ pipeline {
                 bat 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
                 bat 'docker push nazariidoker1/docker:latest'
                 bat "docker tag nazariidoker1/docker:latest nazariidoker1/docker:%env.BUILD_NUMBER%"
-                bat 'docker push nazariidoker1/docker:%env.BUILD_NUMBER%'
+                bat "docker push nazariidoker1/docker:%env.BUILD_NUMBER%"
             }
         }
     }

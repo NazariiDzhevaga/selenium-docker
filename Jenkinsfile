@@ -24,7 +24,7 @@ pipeline {
             }
             steps() {
                 bat 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
-                bat "docker push nazariidoker1/docker"
+                bat 'docker push nazariidoker1/docker'
             }
         }
     }

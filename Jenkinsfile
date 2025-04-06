@@ -1,6 +1,8 @@
 pipeline {
 
-    agent any
+    agent {
+        label 'docker'
+    }
 
     stages {
 
@@ -17,10 +19,19 @@ pipeline {
         }
 
         stage('Push Immage') {
+            environment{
+                DOCKER_HUB = credentials('dockerhub-creds')
+            }
             steps() {
-                bat 'docker push nazariidoker1/docker'
+                bat 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
+                bat "docker push nazariidoker1/docker"
             }
         }
 
+        post{
+            always{
+                bat 'docker logout'
+            }
+        }
     }
 }

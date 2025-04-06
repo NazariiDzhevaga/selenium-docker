@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build Image') {
             steps() {
-                bat 'docker build nazariidoker1/docker'
+                bat 'docker build -t=nazariidoker1/docker .'
             }
         }
 

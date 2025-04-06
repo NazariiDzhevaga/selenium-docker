@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build Image') {
             steps() {
-                bat 'docker build -t=nazariidoker1/docker .'
+                bat 'docker build -t=nazariidoker1/docker:latest .'
             }
         }
 
@@ -24,14 +24,16 @@ pipeline {
             }
             steps() {
                 bat 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
-                bat 'docker push nazariidoker1/docker'
+                bat 'docker push nazariidoker1/docker:latest'
+                bat "docker tag nazariidoker1/docker:latest nazariidoker1/docker:%env.BUILD_NUMBER%"
+                bat 'docker push nazariidoker1/docker:%env.BUILD_NUMBER%'
             }
         }
     }
-    
+
     post{
-            always{
-                bat 'docker logout'
-            }
+        always{
+            bat 'docker logout'
         }
+    }
 }

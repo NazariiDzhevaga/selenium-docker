@@ -27,11 +27,11 @@ pipeline {
                 bat "docker push nazariidoker1/docker"
             }
         }
-
-        post{
+    }
+    
+    post{
             always{
                 bat 'docker logout'
             }
         }
-    }
 }

@@ -15,6 +15,8 @@ ADD runner.sh                    runner.sh
 # HUB_HOST
 # TEST_SUITE
 # THREAD_COUNT
+# Fix for windows
+RUN dos2unix runner.sh
 
 # Start the runner.sh
 ENTRYPOINT sh runner.sh

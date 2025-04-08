@@ -6,7 +6,7 @@ pipeline {
 
     parameters {
         choice choices: ['chrome', 'firefox'], description: 'Select the Browser', name: 'BROWSER'
-        choice choices: ['0ne', 'TWO'], description: 'Select the Browser', name: 'TEST_SUITE'
+        choice choices: ['vendor-portal', 'flight-reservation'], description: 'Select the Browser', name: 'TEST_SUITE'
     }
 
     stages {
@@ -31,6 +31,13 @@ pipeline {
 
         stage('Run Test') {
             steps() {
+                // Windows $env:TEST_SUITE='vendor-portal.xml'
+                //TEST_SUITE=flight-reservation.xml
+                // $env:TEST_SUITE='flight-reservation.xml'
+                // MacOs TEST_SUITE='vendor-portal.xml'
+                //docker-compose -f test-suites.yaml up
+
+                bat "$env:TEST_SUITE='${params.BROWSER}.xml'"
                 bat "docker-compose -f test-suites.yaml up"
                 script {
                     if(fileExists('output/flight-reservation/testng-failed.xml') || fileExists('output/vendor-portal/testng-failed.xml')){

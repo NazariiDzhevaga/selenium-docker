@@ -6,7 +6,7 @@ pipeline {
 
     parameters {
         choice choices: ['chrome', 'firefox'], description: 'Select the Browser', name: 'BROWSER'
-        choice choices: ['vendor-portal', 'flight-reservation'], description: 'Select the Browser', name: 'TEST_SUITE'
+        choice choices: ['0ne', 'TWO'], description: 'Select the Browser', name: 'TEST_SUITE'
     }
 
     stages {
@@ -39,7 +39,7 @@ pipeline {
 
                 bat "set TEST_SUITE=${params.TEST_SUITE}.xml && docker-compose -f test-suites.yaml up"
                 script {
-                    if(fileExists('output/flight-reservation/testng-failed.xml') || fileExists('output/vendor-portal/testng-failed.xml')){
+                    if(fileExists("output/${params.TEST_SUITE}/testng-failed.xml")){
                         error('failed tests found')
                     }
                 }
@@ -51,8 +51,8 @@ pipeline {
         always {
             bat "docker-compose -f grid.yaml down"
             bat "docker-compose -f test-suites.yaml down"
-            archiveArtifacts artifacts: 'output/flight-reservation/emailable-report.html', followSymlinks: false
-            archiveArtifacts artifacts: 'output/vendor-portal/emailable-report.html', followSymlinks: false
+            archiveArtifacts artifacts: "output/${params.TEST_SUITE}/emailable-report.html", followSymlinks: false
+//            archiveArtifacts artifacts: 'output/vendor-portal/emailable-report.html', followSymlinks: false
         }
     }
 }

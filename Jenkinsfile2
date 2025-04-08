@@ -37,7 +37,7 @@ pipeline {
                 // MacOs TEST_SUITE='vendor-portal.xml'
                 //docker-compose -f test-suites.yaml up
 
-                bat "$env:TEST_SUITE='${params.BROWSER}.xml'"
+                bat "$env:TEST_SUITE='${params.TEST_SUITE}.xml'"
                 bat "docker-compose -f test-suites.yaml up"
                 script {
                     if(fileExists('output/flight-reservation/testng-failed.xml') || fileExists('output/vendor-portal/testng-failed.xml')){
